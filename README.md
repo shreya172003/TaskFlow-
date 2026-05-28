@@ -1,44 +1,49 @@
-# Azure To-Do App
+# 🚀 TaskFlow - Azure Cloud-Based To-Do Application
 
-A modern cloud-based To-Do application built using Microsoft Azure services. This project demonstrates serverless cloud architecture with task management features, responsive UI, categories, priorities, dark mode, and Azure deployment.
+TaskFlow is a modern cloud-based To-Do application built using Microsoft Azure services. The project demonstrates cloud deployment, serverless architecture, and NoSQL database integration using Azure free-tier resources.
 
----
-
-## Features
-
-- Add Tasks
-- Delete Tasks
-- Task Categories
-- Priority Levels
-- Due Dates
-- Dark Mode UI
-- Responsive Design
-- Cloud Deployment on Azure
+🌐 **Live Demo:**  
+https://brave-coast-049289300.7.azurestaticapps.net/
 
 ---
 
-## Azure Services Used
+# 📌 Features
 
-| Service | Purpose |
+✅ Add Tasks  
+✅ Delete Tasks  
+✅ Task Categories  
+✅ Priority Levels  
+✅ Due Dates  
+✅ Dark Mode UI  
+✅ Responsive Design  
+✅ Cloud Deployment on Azure  
+✅ Modern Dashboard Interface  
+
+---
+
+# ☁️ Azure Services Used
+
+| Azure Service | Purpose |
 |---|---|
 | Azure Static Web Apps | Frontend Hosting |
-| Azure Functions | Backend APIs |
-| Azure Cosmos DB | Task Storage |
+| Azure Cosmos DB | NoSQL Cloud Database |
+| Azure Functions | Backend API Support |
 | Azure Monitor | Monitoring & Logs |
-| Azure Blob Storage | Optional File Storage |
+| GitHub Actions | CI/CD Deployment |
 
 ---
 
-## Technologies Used
+# 🛠️ Technologies Used
 
-- HTML
-- CSS
+- HTML5
+- CSS3
 - JavaScript
 - Microsoft Azure
+- GitHub Actions
 
 ---
 
-## Project Architecture
+# 🏗️ Project Architecture
 
 ```text
 User
@@ -52,45 +57,73 @@ Azure Cosmos DB
 
 ---
 
-## Screenshots
+# 📸 Screenshots
 
-Add screenshots here after deployment.
+## Home Page
+(Add screenshot here)
+
+## Azure Deployment
+(Add Azure portal screenshot here)
+
+## Cosmos DB
+(Add Cosmos DB screenshot here)
 
 ---
 
-## Deployment
+# 🚀 Deployment
 
-The application is deployed using Azure Static Web Apps.
+The application is deployed using Azure Static Web Apps with GitHub CI/CD integration.
 
-Live Demo:
+### Live Website:
+https://brave-coast-049289300.7.azurestaticapps.net/
+
+---
+
+# 📂 Project Structure
+
 ```text
-Add your Azure URL here
+TaskFlow/
+│
+├── index.html
+├── style.css
+├── script.js
+├── README.md
+└── .github/workflows/
 ```
 
 ---
 
-## Future Improvements
-
-- User Authentication
-- Task Notifications
-- Task Sharing
-- Mobile App Version
-- AI-based Task Suggestions
-
----
-
-## Learning Outcomes
+# 🎯 Learning Outcomes
 
 Through this project, I learned:
 
 - Azure Cloud Deployment
-- Serverless Architecture
+- Azure Static Web Apps
 - Azure Cosmos DB
-- Frontend Hosting on Azure
-- Cloud-based Application Development
+- GitHub CI/CD Integration
+- NoSQL Database Concepts
+- Responsive UI Development
+- Serverless Architecture
 
 ---
 
-## Author
+# 🔮 Future Improvements
 
-Shreya
+- User Authentication
+- Task Notifications
+- Task Sharing
+- AI-based Task Suggestions
+- Mobile Application Version
+- Real-time Synchronization
+
+---
+
+# 💡 Interview Explanation
+
+> TaskFlow is a cloud-hosted task management application built using Microsoft Azure. The frontend is deployed using Azure Static Web Apps, while Azure Cosmos DB is used as the NoSQL cloud database for storing task-related data. GitHub Actions provides automated CI/CD deployment functionality.
+
+---
+
+# 👩‍💻 Author
+
+**Shreya**
