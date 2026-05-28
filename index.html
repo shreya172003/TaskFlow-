@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TaskFlow</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- ═══ APP SHELL ═══ -->
+<div class="app">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+        <div class="sidebar-brand">
+            <span class="material-symbols-rounded brand-icon">task_alt</span>
+            <span class="brand-name">TaskFlow</span>
+        </div>
+
+        <div class="sidebar-section-label">Workspace</div>
+        <nav class="sidebar-nav" id="categoryNav">
+            <button class="nav-item active" data-cat="all" onclick="setCategory('all', this)">
+                <span class="material-symbols-rounded">grid_view</span>
+                <span>All Tasks</span>
+                <span class="nav-badge" id="cat-badge-all">0</span>
+            </button>
+            <button class="nav-item" data-cat="personal" onclick="setCategory('personal', this)">
+                <span class="material-symbols-rounded">person</span>
+                <span>Personal</span>
+                <span class="nav-badge" id="cat-badge-personal">0</span>
+            </button>
+            <button class="nav-item" data-cat="work" onclick="setCategory('work', this)">
+                <span class="material-symbols-rounded">work</span>
+                <span>Work</span>
+                <span class="nav-badge" id="cat-badge-work">0</span>
+            </button>
+            <button class="nav-item" data-cat="shopping" onclick="setCategory('shopping', this)">
+                <span class="material-symbols-rounded">shopping_cart</span>
+                <span>Shopping</span>
+                <span class="nav-badge" id="cat-badge-shopping">0</span>
+            </button>
+            <button class="nav-item" data-cat="health" onclick="setCategory('health', this)">
+                <span class="material-symbols-rounded">favorite</span>
+                <span>Health</span>
+                <span class="nav-badge" id="cat-badge-health">0</span>
+            </button>
+            <button class="nav-item" data-cat="other" onclick="setCategory('other', this)">
+                <span class="material-symbols-rounded">label</span>
+                <span>Other</span>
+                <span class="nav-badge" id="cat-badge-other">0</span>
+            </button>
+        </nav>
+
+        <div class="sidebar-section-label" style="margin-top:auto; padding-top:24px;">Filters</div>
+        <nav class="sidebar-nav">
+            <button class="nav-item" onclick="setSpecialFilter('today', this)">
+                <span class="material-symbols-rounded">today</span>
+                <span>Due Today</span>
+            </button>
+            <button class="nav-item" onclick="setSpecialFilter('overdue', this)">
+                <span class="material-symbols-rounded">warning</span>
+                <span>Overdue</span>
+            </button>
+            <button class="nav-item" onclick="setSpecialFilter('high', this)">
+                <span class="material-symbols-rounded">flag</span>
+                <span>High Priority</span>
+            </button>
+        </nav>
+
+        <div class="sidebar-footer">
+            <button class="theme-toggle" onclick="toggleTheme()" title="Toggle theme">
+                <span class="material-symbols-rounded" id="themeIcon">light_mode</span>
+            </button>
+            <span class="sidebar-date" id="sidebarDate"></span>
+        </div>
+    </aside>
+
+    <!-- MAIN PANEL -->
+    <main class="main">
+
+        <!-- Top Bar -->
+        <div class="topbar">
+            <div class="topbar-left">
+                <h2 class="page-title" id="pageTitle">All Tasks</h2>
+                <span class="page-count" id="pageCount">0 tasks</span>
+            </div>
+            <div class="topbar-right">
+                <div class="search-wrap">
+                    <span class="material-symbols-rounded search-icon">search</span>
+                    <input type="text" id="searchInput" placeholder="Search tasks..." oninput="renderTasks()">
+                    <button class="search-clear" id="searchClear" onclick="clearSearch()">
+                        <span class="material-symbols-rounded">close</span>
+                    </button>
+                </div>
+                <div class="sort-wrap">
+                    <span class="material-symbols-rounded sort-icon">sort</span>
+                    <select id="sortSelect" onchange="renderTasks()">
+                        <option value="created">Date Created</option>
+                        <option value="due">Due Date</option>
+                        <option value="priority">Priority</option>
+                        <option value="name">Name A–Z</option>
+                    </select>
+                </div>
+                <button class="btn-primary" onclick="openModal()">
+                    <span class="material-symbols-rounded">add</span>
+                    New Task
+                </button>
+            </div>
+        </div>
+
+        <!-- Stats Row -->
+        <div class="stats-row">
+            <div class="stat-card">
+                <div class="stat-icon purple"><span class="material-symbols-rounded">checklist</span></div>
+                <div>
+                    <div class="stat-value" id="statTotal">0</div>
+                    <div class="stat-label">Total</div>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon green"><span class="material-symbols-rounded">check_circle</span></div>
+                <div>
+                    <div class="stat-value" id="statDone">0</div>
+                    <div class="stat-label">Completed</div>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon orange"><span class="material-symbols-rounded">pending</span></div>
+                <div>
+                    <div class="stat-value" id="statPending">0</div>
+                    <div class="stat-label">Pending</div>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon red"><span class="material-symbols-rounded">warning</span></div>
+                <div>
+                    <div class="stat-value" id="statOverdue">0</div>
+                    <div class="stat-label">Overdue</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Progress -->
+        <div class="progress-section">
+            <div class="progress-header">
+                <span id="progressLabel">Overall Progress</span>
+                <span id="progressPct">0%</span>
+            </div>
+            <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+        </div>
+
+        <!-- Status Tabs -->
+        <div class="status-tabs">
+            <button class="tab active" data-status="all" onclick="setStatus('all', this)">All</button>
+            <button class="tab" data-status="active" onclick="setStatus('active', this)">Active</button>
+            <button class="tab" data-status="completed" onclick="setStatus('completed', this)">Completed</button>
+            <div class="tab-actions">
+                <button class="ghost-btn" onclick="clearCompleted()">
+                    <span class="material-symbols-rounded">sweep</span> Clear Completed
+                </button>
+            </div>
+        </div>
+
+        <!-- Task List -->
+        <div class="task-list" id="taskList"></div>
+
+        <!-- Empty State -->
+        <div class="empty-state" id="emptyState" style="display:none">
+            <span class="material-symbols-rounded empty-icon">inbox</span>
+            <p>No tasks found</p>
+            <span>Add a new task or change your filters</span>
+        </div>
+
+    </main>
+</div>
+
+<!-- ═══ ADD / EDIT MODAL ═══ -->
+<div class="modal-overlay" id="modalOverlay" onclick="closeModalOutside(event)">
+    <div class="modal" id="modal">
+        <div class="modal-header">
+            <h3 id="modalTitle">New Task</h3>
+            <button class="modal-close" onclick="closeModal()">
+                <span class="material-symbols-rounded">close</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <div class="field">
+                <label>Task Title <span class="required">*</span></label>
+                <input type="text" id="modalTaskInput" placeholder="What needs to be done?" maxlength="120">
+            </div>
+            <div class="field">
+                <label>Notes</label>
+                <textarea id="modalNotes" placeholder="Add details or notes..." rows="3"></textarea>
+            </div>
+            <div class="field-row">
+                <div class="field">
+                    <label>Category</label>
+                    <select id="modalCategory">
+                        <option value="personal">Personal</option>
+                        <option value="work">Work</option>
+                        <option value="shopping">Shopping</option>
+                        <option value="health">Health</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+                <div class="field">
+                    <label>Priority</label>
+                    <select id="modalPriority">
+                        <option value="medium">Medium</option>
+                        <option value="high">High</option>
+                        <option value="low">Low</option>
+                    </select>
+                </div>
+            </div>
+            <div class="field">
+                <label>Due Date</label>
+                <input type="date" id="modalDueDate">
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn-ghost" onclick="closeModal()">Cancel</button>
+            <button class="btn-primary" onclick="saveTask()">
+                <span class="material-symbols-rounded">check</span>
+                <span id="modalSaveLabel">Add Task</span>
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- Toast -->
+<div class="toast" id="toast"></div>
+
+<script src="script.js"></script>
+</body>
+</html>
